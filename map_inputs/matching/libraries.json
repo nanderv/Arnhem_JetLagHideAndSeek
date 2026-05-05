@@ -1,0 +1,112 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 51.9682388,
+      "lng": 5.8952783,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Openbare Bibliotheek Arnhem hoofdvestiging"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9047013,
+              51.9806537
+            ]
+          },
+          "bbox": [
+            5.9047013,
+            51.9806537,
+            5.9047013,
+            51.9806537
+          ]
+        },
+        {
+          "id": "1",
+          "type": "Feature",
+          "properties": {
+            "name": "Rozet Kronenburg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8973826,
+              51.9580479
+            ]
+          },
+          "bbox": [
+            5.8973826,
+            51.9580479,
+            5.8973826,
+            51.9580479
+          ]
+        },
+        {
+          "id": "2",
+          "type": "Feature",
+          "properties": {
+            "name": "Rozet in de Laar"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8585924,
+              51.9473038
+            ]
+          },
+          "bbox": [
+            5.8585924,
+            51.9473038,
+            5.8585924,
+            51.9473038
+          ]
+        },
+        {
+          "id": "3",
+          "type": "Feature",
+          "properties": {
+            "name": "de Bibliotheek Oosterbeek | De Klipper"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8418511,
+              51.9891738
+            ]
+          },
+          "bbox": [
+            5.8418511,
+            51.9891738,
+            5.8418511,
+            51.9891738
+          ]
+        },
+        {
+          "id": "4",
+          "type": "Feature",
+          "properties": {
+            "name": "de Bibliotheek Presikhaaf"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9487055,
+              51.9808841
+            ]
+          },
+          "bbox": [
+            5.9487055,
+            51.9808841,
+            5.9487055,
+            51.9808841
+          ]
+        }
+      ]
+    }
+  }
+]

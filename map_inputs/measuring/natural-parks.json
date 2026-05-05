@@ -1,0 +1,701 @@
+[
+  {
+    "id": "measuring",
+    "data": {
+      "type": "custom-measure",
+      "lat": 51.970306300000004,
+      "lng": 5.89571965,
+      "geo": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "id": "0",
+            "type": "Feature",
+            "properties": {
+              "name": "Zeegbos"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9022483,
+                51.939905350000004
+              ]
+            },
+            "bbox": [
+              5.9022483,
+              51.939905350000004,
+              5.9022483,
+              51.939905350000004
+            ]
+          },
+          {
+            "id": "1",
+            "type": "Feature",
+            "properties": {
+              "name": "Jubileumpark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8771582,
+                51.943250000000006
+              ]
+            },
+            "bbox": [
+              5.8771582,
+              51.943250000000006,
+              5.8771582,
+              51.943250000000006
+            ]
+          },
+          {
+            "id": "2",
+            "type": "Feature",
+            "properties": {
+              "name": "Immerloopark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9169,
+                51.952990650000004
+              ]
+            },
+            "bbox": [
+              5.9169,
+              51.952990650000004,
+              5.9169,
+              51.952990650000004
+            ]
+          },
+          {
+            "id": "3",
+            "type": "Feature",
+            "properties": {
+              "name": "Westerveldpark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.88345235,
+                51.96425
+              ]
+            },
+            "bbox": [
+              5.88345235,
+              51.96425,
+              5.88345235,
+              51.96425
+            ]
+          },
+          {
+            "id": "4",
+            "type": "Feature",
+            "properties": {
+              "name": "Sacré Cœur"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.94665585,
+                51.9905791
+              ]
+            },
+            "bbox": [
+              5.94665585,
+              51.9905791,
+              5.94665585,
+              51.9905791
+            ]
+          },
+          {
+            "id": "5",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Angerenstein"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.93850265,
+                51.993900999999994
+              ]
+            },
+            "bbox": [
+              5.93850265,
+              51.993900999999994,
+              5.93850265,
+              51.993900999999994
+            ]
+          },
+          {
+            "id": "6",
+            "type": "Feature",
+            "properties": {
+              "name": "landgoed Rennen Enk"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.943156999999999,
+                51.9937255
+              ]
+            },
+            "bbox": [
+              5.943156999999999,
+              51.9937255,
+              5.943156999999999,
+              51.9937255
+            ]
+          },
+          {
+            "id": "7",
+            "type": "Feature",
+            "properties": {
+              "name": "Klarenbeek"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.925072,
+                51.99778635
+              ]
+            },
+            "bbox": [
+              5.925072,
+              51.99778635,
+              5.925072,
+              51.99778635
+            ]
+          },
+          {
+            "id": "8",
+            "type": "Feature",
+            "properties": {
+              "name": "Geërfdenpark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9665313,
+                51.986640449999996
+              ]
+            },
+            "bbox": [
+              5.9665313,
+              51.986640449999996,
+              5.9665313,
+              51.986640449999996
+            ]
+          },
+          {
+            "id": "9",
+            "type": "Feature",
+            "properties": {
+              "name": "Elly Lamakerplantsoen"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9168544,
+                51.9859329
+              ]
+            },
+            "bbox": [
+              5.9168544,
+              51.9859329,
+              5.9168544,
+              51.9859329
+            ]
+          },
+          {
+            "id": "10",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Malburgen West"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8968637,
+                51.96979375
+              ]
+            },
+            "bbox": [
+              5.8968637,
+              51.96979375,
+              5.8968637,
+              51.96979375
+            ]
+          },
+          {
+            "id": "11",
+            "type": "Feature",
+            "properties": {
+              "name": "Tuin de Lage Oorsprong"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.824908000000001,
+                51.9810898
+              ]
+            },
+            "bbox": [
+              5.824908000000001,
+              51.9810898,
+              5.824908000000001,
+              51.9810898
+            ]
+          },
+          {
+            "id": "12",
+            "type": "Feature",
+            "properties": {
+              "name": "Koeienweide Schuytgraaf"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.845321500000001,
+                51.952861150000004
+              ]
+            },
+            "bbox": [
+              5.845321500000001,
+              51.952861150000004,
+              5.845321500000001,
+              51.952861150000004
+            ]
+          },
+          {
+            "id": "13",
+            "type": "Feature",
+            "properties": {
+              "name": "Janspark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.909019799999999,
+                51.98433135
+              ]
+            },
+            "bbox": [
+              5.909019799999999,
+              51.98433135,
+              5.909019799999999,
+              51.98433135
+            ]
+          },
+          {
+            "id": "14",
+            "type": "Feature",
+            "properties": {
+              "name": "Joop Jansen Plantsoen"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.91568745,
+                51.9846184
+              ]
+            },
+            "bbox": [
+              5.91568745,
+              51.9846184,
+              5.91568745,
+              51.9846184
+            ]
+          },
+          {
+            "id": "15",
+            "type": "Feature",
+            "properties": {
+              "name": "Stadspark Hoogte 80"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9332082,
+                52.00070725
+              ]
+            },
+            "bbox": [
+              5.9332082,
+              52.00070725,
+              5.9332082,
+              52.00070725
+            ]
+          },
+          {
+            "id": "16",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Thialf"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.92805845,
+                51.9826056
+              ]
+            },
+            "bbox": [
+              5.92805845,
+              51.9826056,
+              5.92805845,
+              51.9826056
+            ]
+          },
+          {
+            "id": "17",
+            "type": "Feature",
+            "properties": {
+              "name": "Beekdalpark Paasberg"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.945539950000001,
+                51.9999952
+              ]
+            },
+            "bbox": [
+              5.945539950000001,
+              51.9999952,
+              5.945539950000001,
+              51.9999952
+            ]
+          },
+          {
+            "id": "18",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Gulden Bodem"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8888114,
+                51.99958325
+              ]
+            },
+            "bbox": [
+              5.8888114,
+              51.99958325,
+              5.8888114,
+              51.99958325
+            ]
+          },
+          {
+            "id": "19",
+            "type": "Feature",
+            "properties": {
+              "name": "Musispark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.914506749999999,
+                51.9807094
+              ]
+            },
+            "bbox": [
+              5.914506749999999,
+              51.9807094,
+              5.914506749999999,
+              51.9807094
+            ]
+          },
+          {
+            "id": "20",
+            "type": "Feature",
+            "properties": {
+              "name": "Zypendaal"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.89725635,
+                52.00014470000001
+              ]
+            },
+            "bbox": [
+              5.89725635,
+              52.00014470000001,
+              5.89725635,
+              52.00014470000001
+            ]
+          },
+          {
+            "id": "21",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Elderveld"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.86763545,
+                51.95866225
+              ]
+            },
+            "bbox": [
+              5.86763545,
+              51.95866225,
+              5.86763545,
+              51.95866225
+            ]
+          },
+          {
+            "id": "22",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Molenbeke"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.92682865,
+                51.98595145
+              ]
+            },
+            "bbox": [
+              5.92682865,
+              51.98595145,
+              5.92682865,
+              51.98595145
+            ]
+          },
+          {
+            "id": "23",
+            "type": "Feature",
+            "properties": {
+              "name": "Rietgrachtpark"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9188819,
+                51.9773042
+              ]
+            },
+            "bbox": [
+              5.9188819,
+              51.9773042,
+              5.9188819,
+              51.9773042
+            ]
+          },
+          {
+            "id": "24",
+            "type": "Feature",
+            "properties": {
+              "name": "Groene middenberm"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8848787,
+                51.9593999
+              ]
+            },
+            "bbox": [
+              5.8848787,
+              51.9593999,
+              5.8848787,
+              51.9593999
+            ]
+          },
+          {
+            "id": "25",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Presikhaaf"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9481117,
+                51.98606155
+              ]
+            },
+            "bbox": [
+              5.9481117,
+              51.98606155,
+              5.9481117,
+              51.98606155
+            ]
+          },
+          {
+            "id": "26",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Zuiderveld"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8754437500000005,
+                51.955188199999995
+              ]
+            },
+            "bbox": [
+              5.8754437500000005,
+              51.955188199999995,
+              5.8754437500000005,
+              51.955188199999995
+            ]
+          },
+          {
+            "id": "27",
+            "type": "Feature",
+            "properties": {
+              "name": "Market Gardenplantsoen"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.889521500000001,
+                51.984694700000006
+              ]
+            },
+            "bbox": [
+              5.889521500000001,
+              51.984694700000006,
+              5.889521500000001,
+              51.984694700000006
+            ]
+          },
+          {
+            "id": "28",
+            "type": "Feature",
+            "properties": {
+              "name": "Bronbeek"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.9505004,
+                51.99523
+              ]
+            },
+            "bbox": [
+              5.9505004,
+              51.99523,
+              5.9505004,
+              51.99523
+            ]
+          },
+          {
+            "id": "29",
+            "type": "Feature",
+            "properties": {
+              "name": "Sonsbeek"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.90346685,
+                51.99140855
+              ]
+            },
+            "bbox": [
+              5.90346685,
+              51.99140855,
+              5.90346685,
+              51.99140855
+            ]
+          },
+          {
+            "id": "30",
+            "type": "Feature",
+            "properties": {
+              "name": "Bato's Wijk"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.84360415,
+                51.982418550000006
+              ]
+            },
+            "bbox": [
+              5.84360415,
+              51.982418550000006,
+              5.84360415,
+              51.982418550000006
+            ]
+          },
+          {
+            "id": "31",
+            "type": "Feature",
+            "properties": {
+              "name": "Buurttuin Rodenburgstraat"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.907997,
+                51.978641249999995
+              ]
+            },
+            "bbox": [
+              5.907997,
+              51.978641249999995,
+              5.907997,
+              51.978641249999995
+            ]
+          },
+          {
+            "id": "32",
+            "type": "Feature",
+            "properties": {
+              "name": "Jacob Groenewoud Plantsoen"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.91099875,
+                51.97632145
+              ]
+            },
+            "bbox": [
+              5.91099875,
+              51.97632145,
+              5.91099875,
+              51.97632145
+            ]
+          },
+          {
+            "id": "33",
+            "type": "Feature",
+            "properties": {
+              "name": "Park Hartenstein"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                5.8327155,
+                51.9871863
+              ]
+            },
+            "bbox": [
+              5.8327155,
+              51.9871863,
+              5.8327155,
+              51.9871863
+            ]
+          }
+        ],
+        "bbox": [
+          5.824908000000001,
+          51.939905350000004,
+          5.9665313,
+          52.00070725
+        ]
+      }
+    }
+  }
+]

@@ -32,6 +32,38 @@ import type {
     MatchingQuestion,
 } from "@/maps/schema";
 
+const selectCustomZoneBoundary = (question: MatchingQuestion) => {
+    if (question.type !== "custom-zone" || !question.geo) {
+        return undefined;
+    }
+
+    const flattened = turf.flatten(
+        question.geo.type === "FeatureCollection"
+            ? question.geo
+            : turf.featureCollection([question.geo]),
+    ) as any;
+    const polygons = flattened.features.filter(
+        (feature: any) => feature.geometry.type === "Polygon",
+    ) as Feature<Polygon>[];
+
+    if (polygons.length <= 1) {
+        return question.geo;
+    }
+
+    const point = turf.point([question.lng, question.lat]);
+    const containingPolygon = polygons.find((feature) =>
+        turf.booleanPointInPolygon(point, feature),
+    );
+
+    if (containingPolygon) {
+        return containingPolygon;
+    }
+
+    return _.minBy(polygons, (feature) =>
+        turf.distance(point, turf.centroid(feature)),
+    );
+};
+
 export const findMatchingPlaces = async (question: MatchingQuestion) => {
     switch (question.type) {
         case "airport": {
@@ -140,7 +172,7 @@ export const determineMatchingBoundary = _.memoize(
                 return false;
             }
             case "custom-zone": {
-                boundary = question.geo;
+                boundary = selectCustomZoneBoundary(question);
                 break;
             }
             case "zone": {
@@ -421,6 +453,18 @@ export const matchingPlanningPolygon = async (question: MatchingQuestion) => {
 
         if (boundary === false) {
             return false;
+        }
+
+        if (boundary.type === "FeatureCollection") {
+            return turf.featureCollection(
+                boundary.features.flatMap((feature) => {
+                    if (feature.geometry.type !== "Polygon") {
+                        return [];
+                    }
+
+                    return [turf.polygonToLine(feature)];
+                }),
+            );
         }
 
         return turf.polygonToLine(boundary);

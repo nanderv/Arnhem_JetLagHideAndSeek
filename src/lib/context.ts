@@ -1,8 +1,14 @@
-import { persistentAtom } from "@nanostores/persistent";
+import { persistentAtom, setPersistentEngine } from "@nanostores/persistent";
 import type { FeatureCollection, MultiPolygon, Polygon } from "geojson";
 import type { Map } from "leaflet";
 import { atom, computed, onSet } from "nanostores";
 
+import {
+    DEFAULT_GAME_AREA_LOCATION,
+    DEFAULT_GAME_AREA_POLYGON,
+    GAME_AREA_CONFIG_VERSION,
+} from "@/lib/buildConfig";
+import { normalizeQuestions } from "@/lib/normalizeQuestions";
 import type {
     AdditionalMapGeoLocations,
     CustomStation,
@@ -19,26 +25,26 @@ import {
     type Units,
 } from "@/maps/schema";
 
+export const DEFAULT_HIDING_RADIUS = 250;
+export const DEFAULT_HIDING_RADIUS_UNITS: Units = "meters";
+export const DEFAULT_DISPLAY_HIDING_ZONES = true;
+export const SETTINGS_CONFIG_VERSION = 2;
+
+const isBrowser = typeof window !== "undefined";
+
+if (!isBrowser) {
+    setPersistentEngine(
+        {},
+        {
+            addEventListener() {},
+            removeEventListener() {},
+        },
+    );
+}
+
 export const mapGeoLocation = persistentAtom<OpenStreetMap>(
     "mapGeoLocation",
-    {
-        geometry: {
-            coordinates: [36.5748441, 139.2394179],
-            type: "Point",
-        },
-        type: "Feature",
-        properties: {
-            osm_type: "R",
-            osm_id: 382313,
-            extent: [45.7112046, 122.7141754, 20.2145811, 154.205541],
-            country: "Japan",
-            osm_key: "place",
-            countrycode: "JP",
-            osm_value: "country",
-            name: "Japan",
-            type: "country",
-        },
-    },
+    DEFAULT_GAME_AREA_LOCATION,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -65,14 +71,28 @@ export const mapGeoJSON = atom<FeatureCollection<
 > | null>(null);
 export const polyGeoJSON = persistentAtom<FeatureCollection<
     Polygon | MultiPolygon
-> | null>("polyGeoJSON", null, {
+> | null>("polyGeoJSON", DEFAULT_GAME_AREA_POLYGON, {
     encode: JSON.stringify,
     decode: JSON.parse,
 });
+const gameAreaConfigVersion = persistentAtom<number>(
+    "gameAreaConfigVersion",
+    0,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+
+if (isBrowser && gameAreaConfigVersion.get() !== GAME_AREA_CONFIG_VERSION) {
+    mapGeoLocation.set(structuredClone(DEFAULT_GAME_AREA_LOCATION));
+    polyGeoJSON.set(structuredClone(DEFAULT_GAME_AREA_POLYGON));
+    gameAreaConfigVersion.set(GAME_AREA_CONFIG_VERSION);
+}
 
 export const questions = persistentAtom<Questions>("questions", [], {
     encode: JSON.stringify,
-    decode: (x) => questionsSchema.parse(JSON.parse(x)),
+    decode: (x) => normalizeQuestions(questionsSchema.parse(JSON.parse(x))),
 });
 export const addQuestion = (question: DeepPartial<Question>) =>
     questionModified(questions.get().push(questionSchema.parse(question)));
@@ -101,7 +121,7 @@ export const hiderMode = persistentAtom<
 export const triggerLocalRefresh = atom<number>(0);
 export const displayHidingZones = persistentAtom<boolean>(
     "displayHidingZones",
-    false,
+    DEFAULT_DISPLAY_HIDING_ZONES,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
@@ -169,18 +189,37 @@ export const animateMapMovements = persistentAtom<boolean>(
         decode: JSON.parse,
     },
 );
-export const hidingRadius = persistentAtom<number>("hidingRadius", 0.5, {
-    encode: JSON.stringify,
-    decode: JSON.parse,
-});
-export const hidingRadiusUnits = persistentAtom<Units>(
-    "hidingRadiusUnits",
-    "miles",
+export const hidingRadius = persistentAtom<number>(
+    "hidingRadius",
+    DEFAULT_HIDING_RADIUS,
     {
         encode: JSON.stringify,
         decode: JSON.parse,
     },
 );
+export const hidingRadiusUnits = persistentAtom<Units>(
+    "hidingRadiusUnits",
+    DEFAULT_HIDING_RADIUS_UNITS,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+const settingsConfigVersion = persistentAtom<number>(
+    "settingsConfigVersion",
+    0,
+    {
+        encode: JSON.stringify,
+        decode: JSON.parse,
+    },
+);
+
+if (isBrowser && settingsConfigVersion.get() !== SETTINGS_CONFIG_VERSION) {
+    displayHidingZones.set(DEFAULT_DISPLAY_HIDING_ZONES);
+    hidingRadius.set(DEFAULT_HIDING_RADIUS);
+    hidingRadiusUnits.set(DEFAULT_HIDING_RADIUS_UNITS);
+    settingsConfigVersion.set(SETTINGS_CONFIG_VERSION);
+}
 export const disabledStations = persistentAtom<string[]>(
     "disabledStations",
     [],
@@ -393,4 +432,21 @@ export const allowGooglePlusCodes = persistentAtom<boolean>(
         encode: JSON.stringify,
         decode: JSON.parse,
     },
+);
+
+export const matchingQuestionsOverrideUrl = persistentAtom<string>(
+    "matchingQuestionsOverrideUrl",
+    "",
+);
+export const measuringQuestionsOverrideUrl = persistentAtom<string>(
+    "measuringQuestionsOverrideUrl",
+    "",
+);
+export const overlayGeoJsonOverrideUrl = persistentAtom<string>(
+    "overlayGeoJsonOverrideUrl",
+    "",
+);
+export const hidingZonesGeoJsonOverrideUrl = persistentAtom<string>(
+    "hidingZonesGeoJsonOverrideUrl",
+    "",
 );

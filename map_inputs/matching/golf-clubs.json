@@ -1,0 +1,72 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 51.98214165,
+      "lng": 5.87930565,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Rosendaelsche Golfclub"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.93264965,
+              52.02279335
+            ]
+          },
+          "bbox": [
+            5.93264965,
+            52.02279335,
+            5.93264965,
+            52.02279335
+          ]
+        },
+        {
+          "id": "1",
+          "type": "Feature",
+          "properties": {
+            "name": "Golfbaan Landgoed Welderen"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.82596165,
+              51.941489950000005
+            ]
+          },
+          "bbox": [
+            5.82596165,
+            51.941489950000005,
+            5.82596165,
+            51.941489950000005
+          ]
+        },
+        {
+          "id": "2",
+          "type": "Feature",
+          "properties": {
+            "name": "Edese Golf Club Papendal"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.82617875,
+              52.00702665
+            ]
+          },
+          "bbox": [
+            5.82617875,
+            52.00702665,
+            5.82617875,
+            52.00702665
+          ]
+        }
+      ]
+    }
+  }
+]

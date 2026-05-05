@@ -94,6 +94,17 @@ pnpm dev
 
 After making any modifications, please run `pnpm lint` to have your code automatically formatted and errors spotted.
 
+## Compile-Time Matching And Measuring Questions
+
+Matching and measuring questions can now be loaded from the root-level files `matching_questions.json` and `measuring_questions.json`.
+
+Each file should contain a JSON array of full question objects using the same shape that the app exports via a question card's share dialog and imports via "Paste Question".
+
+Only custom file-backed question variants are supported in these files:
+
+- `matching_questions.json`: `matching` questions with `data.type` of `custom-zone` or `custom-points`
+- `measuring_questions.json`: `measuring` questions with `data.type` of `custom-measure`
+
 ## Contributors
 
 A great deal of appreciation goes out to these individuals who have helped to create this tool:

@@ -307,6 +307,7 @@ const customMatchingQuestionSchema = baseMatchingQuestionSchema.extend({
         z.literal("custom-points").describe("Custom Points Question"),
     ]),
     geo: z.any(),
+    compiledName: z.string().optional(),
 });
 
 export const matchingQuestionSchema = z.union([
@@ -396,6 +397,7 @@ const homeGameMeasuringQuestionsSchema = baseMeasuringQuestionSchema.extend({
 const customMeasuringQuestionSchema = baseMeasuringQuestionSchema.extend({
     type: z.literal("custom-measure").describe("Custom Measuring Question"),
     geo: z.any(),
+    compiledName: z.string().optional(),
 });
 
 export const measuringQuestionSchema = z.union([

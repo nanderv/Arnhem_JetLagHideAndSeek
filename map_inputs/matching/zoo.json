@@ -1,0 +1,32 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 52.010064,
+      "lng": 5.9000794,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Burgers' Zoo"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9000794,
+              52.010064
+            ]
+          },
+          "bbox": [
+            5.9000794,
+            52.010064,
+            5.9000794,
+            52.010064
+          ]
+        }
+      ]
+    }
+  }
+]

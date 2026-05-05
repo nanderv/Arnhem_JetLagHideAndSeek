@@ -29,6 +29,10 @@ import {
     thunderforestApiKey,
     triggerLocalRefresh,
 } from "@/lib/context";
+import {
+    getCompiledMatchingQuestions,
+    getCompiledMeasuringQuestions,
+} from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
 import { hiderifyQuestion } from "@/maps";
@@ -298,27 +302,59 @@ export const Map = ({ className }: { className?: string }) => {
                         },
                     },
                     {
-                        text: "Add Matching",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "matching",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            });
+                        text: "Load Matching Questions",
+                        callback: async () => {
+                            let compiledQuestions;
+
+                            try {
+                                compiledQuestions =
+                                    await getCompiledMatchingQuestions();
+                            } catch (error) {
+                                toast.error(
+                                    `Failed to load matching questions: ${error}`,
+                                );
+                                return;
+                            }
+
+                            if (compiledQuestions.length === 0) {
+                                toast.error(
+                                    "No matching questions found in map_inputs/matching",
+                                );
+                                return;
+                            }
+
+                            questions.set([
+                                ...questions.get(),
+                                compiledQuestions[0],
+                            ]);
                         },
                     },
                     {
-                        text: "Add Measuring",
-                        callback: (e: any) => {
-                            addQuestion({
-                                id: "measuring",
-                                data: {
-                                    lat: e.latlng.lat,
-                                    lng: e.latlng.lng,
-                                },
-                            });
+                        text: "Load Measuring Questions",
+                        callback: async () => {
+                            let compiledQuestions;
+
+                            try {
+                                compiledQuestions =
+                                    await getCompiledMeasuringQuestions();
+                            } catch (error) {
+                                toast.error(
+                                    `Failed to load measuring questions: ${error}`,
+                                );
+                                return;
+                            }
+
+                            if (compiledQuestions.length === 0) {
+                                toast.error(
+                                    "No measuring questions found in map_inputs/measuring",
+                                );
+                                return;
+                            }
+
+                            questions.set([
+                                ...questions.get(),
+                                compiledQuestions[0],
+                            ]);
                         },
                     },
                     {

@@ -1,0 +1,192 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 52.02797785,
+      "lng": 5.92380045,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Galgenberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9320829,
+              52.0639712
+            ]
+          },
+          "bbox": [
+            5.9320829,
+            52.0639712,
+            5.9320829,
+            52.0639712
+          ]
+        },
+        {
+          "id": "1",
+          "type": "Feature",
+          "properties": {
+            "name": "Keienberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9848355,
+              52.0032051
+            ]
+          },
+          "bbox": [
+            5.9848355,
+            52.0032051,
+            5.9848355,
+            52.0032051
+          ]
+        },
+        {
+          "id": "2",
+          "type": "Feature",
+          "properties": {
+            "name": "Ossenberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9907299,
+              52.0064817
+            ]
+          },
+          "bbox": [
+            5.9907299,
+            52.0064817,
+            5.9907299,
+            52.0064817
+          ]
+        },
+        {
+          "id": "3",
+          "type": "Feature",
+          "properties": {
+            "name": "De Waterberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9171188,
+              52.0101748
+            ]
+          },
+          "bbox": [
+            5.9171188,
+            52.0101748,
+            5.9171188,
+            52.0101748
+          ]
+        },
+        {
+          "id": "4",
+          "type": "Feature",
+          "properties": {
+            "name": "Vijverberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.856871,
+              52.0042791
+            ]
+          },
+          "bbox": [
+            5.856871,
+            52.0042791,
+            5.856871,
+            52.0042791
+          ]
+        },
+        {
+          "id": "5",
+          "type": "Feature",
+          "properties": {
+            "name": "Apostelenberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.908374,
+              51.9919845
+            ]
+          },
+          "bbox": [
+            5.908374,
+            51.9919845,
+            5.908374,
+            51.9919845
+          ]
+        },
+        {
+          "id": "6",
+          "type": "Feature",
+          "properties": {
+            "name": "Ruyterenberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.908239,
+              51.9939175
+            ]
+          },
+          "bbox": [
+            5.908239,
+            51.9939175,
+            5.908239,
+            51.9939175
+          ]
+        },
+        {
+          "id": "7",
+          "type": "Feature",
+          "properties": {
+            "name": "Engelse Berg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.901039,
+              51.9926305
+            ]
+          },
+          "bbox": [
+            5.901039,
+            51.9926305,
+            5.901039,
+            51.9926305
+          ]
+        },
+        {
+          "id": "8",
+          "type": "Feature",
+          "properties": {
+            "name": "Bicksberg"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8953679,
+              52.0008695
+            ]
+          },
+          "bbox": [
+            5.8953679,
+            52.0008695,
+            5.8953679,
+            52.0008695
+          ]
+        }
+      ]
+    }
+  }
+]

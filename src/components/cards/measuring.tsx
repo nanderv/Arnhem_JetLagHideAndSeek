@@ -22,6 +22,7 @@ import {
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { getCompiledMeasuringPresets } from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import { determineMeasuringBoundary } from "@/maps/questions/measuring";
 import {
@@ -52,6 +53,21 @@ export const MeasuringQuestionComponent = ({
     const $isLoading = useStore(isLoading);
     const $customInitPref = useStore(customInitPreference);
     const [customDialogOpen, setCustomDialogOpen] = React.useState(false);
+    const compiledMeasuringPresets = getCompiledMeasuringPresets();
+    const usesCompiledPreset =
+        compiledMeasuringPresets.length > 0 && data.type === "custom-measure";
+    const compiledMeasuringOptions = Object.fromEntries(
+        compiledMeasuringPresets.map((preset) => [
+            `compiled:${preset.id}`,
+            preset.name,
+        ]),
+    );
+    const measuringTypeValue =
+        usesCompiledPreset && data.compiledName
+            ? (Object.entries(compiledMeasuringOptions).find(
+                  ([, label]) => label === data.compiledName,
+              )?.[0] ?? data.type)
+            : data.type;
     const label = `Measuring
     ${
         $questions
@@ -128,7 +144,7 @@ export const MeasuringQuestionComponent = ({
         <QuestionCard
             questionKey={questionKey}
             label={label}
-            sub={sub}
+            sub={sub ?? data.compiledName}
             className={className}
             collapsed={data.collapsed}
             setCollapsed={(collapsed) => {
@@ -170,55 +186,89 @@ export const MeasuringQuestionComponent = ({
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
                     trigger="Measuring Type"
-                    options={Object.fromEntries(
-                        measuringQuestionSchema.options
-                            .filter((x) => x.description === NO_GROUP)
-                            .flatMap((x) =>
-                                determineUnionizedStrings(x.shape.type),
-                            )
-                            .map((x) => [(x._def as any).value, x.description]),
-                    )}
-                    groups={measuringQuestionSchema.options
-                        .filter((x) => x.description !== NO_GROUP)
-                        .map((x) => [
-                            x.description,
-                            Object.fromEntries(
-                                determineUnionizedStrings(x.shape.type).map(
-                                    (x) => [
-                                        (x._def as any).value,
-                                        x.description,
-                                    ],
-                                ),
-                            ),
-                        ])
-                        .reduce(
-                            (acc, [key, value]) => {
-                                const values = {
-                                    disabled: !$displayHidingZones,
-                                    options: value,
-                                };
+                    options={
+                        usesCompiledPreset
+                            ? compiledMeasuringOptions
+                            : Object.fromEntries(
+                                  measuringQuestionSchema.options
+                                      .filter((x) => x.description === NO_GROUP)
+                                      .flatMap((x) =>
+                                          determineUnionizedStrings(
+                                              x.shape.type,
+                                          ),
+                                      )
+                                      .map((x) => [
+                                          (x._def as any).value,
+                                          x.description,
+                                      ]),
+                              )
+                    }
+                    groups={
+                        usesCompiledPreset
+                            ? undefined
+                            : measuringQuestionSchema.options
+                                  .filter((x) => x.description !== NO_GROUP)
+                                  .map((x) => [
+                                      x.description,
+                                      Object.fromEntries(
+                                          determineUnionizedStrings(
+                                              x.shape.type,
+                                          ).map((x) => [
+                                              (x._def as any).value,
+                                              x.description,
+                                          ]),
+                                      ),
+                                  ])
+                                  .reduce(
+                                      (acc, [key, value]) => {
+                                          const values = {
+                                              disabled: !$displayHidingZones,
+                                              options: value,
+                                          };
 
-                                if (acc[key]) {
-                                    acc[key].options = {
-                                        ...acc[key].options,
-                                        ...value,
-                                    };
-                                } else {
-                                    acc[key] = values;
-                                }
+                                          if (acc[key]) {
+                                              acc[key].options = {
+                                                  ...acc[key].options,
+                                                  ...value,
+                                              };
+                                          } else {
+                                              acc[key] = values;
+                                          }
 
-                                return acc;
-                            },
-                            {} as Record<
-                                string,
-                                {
-                                    disabled: boolean;
-                                    options: Record<string, string>;
-                                }
-                            >,
-                        )}
-                    value={data.type}
+                                          return acc;
+                                      },
+                                      {} as Record<
+                                          string,
+                                          {
+                                              disabled: boolean;
+                                              options: Record<string, string>;
+                                          }
+                                      >,
+                                  )
+                    }
+                    value={measuringTypeValue}
                     onValueChange={async (value) => {
+                        if (value.startsWith("compiled:")) {
+                            const preset = compiledMeasuringPresets.find(
+                                (entry) => `compiled:${entry.id}` === value,
+                            );
+
+                            if (!preset || preset.question.id !== "measuring") {
+                                return;
+                            }
+
+                            data.type = preset.question.data.type;
+                            data.lat = preset.question.data.lat;
+                            data.lng = preset.question.data.lng;
+                            data.geo = structuredClone(
+                                preset.question.data.geo,
+                            );
+                            data.compiledName =
+                                preset.question.data.compiledName;
+                            questionModified();
+                            return;
+                        }
+
                         if (value === "custom-measure") {
                             if ($customInitPref === "ask") {
                                 setCustomDialogOpen(true);
@@ -246,10 +296,12 @@ export const MeasuringQuestionComponent = ({
                                     ? boundary
                                     : [];
                             }
+                            delete data.compiledName;
                             data.type = value;
                             questionModified();
                             return;
                         }
+                        delete data.compiledName;
                         data.type = value;
                         questionModified();
                     }}

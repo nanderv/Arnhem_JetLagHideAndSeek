@@ -23,6 +23,7 @@ import {
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
+import { getCompiledMatchingPresets } from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import {
     determineMatchingBoundary,
@@ -59,6 +60,22 @@ export const MatchingQuestionComponent = ({
     const [pendingCustomType, setPendingCustomType] = React.useState<
         "custom-zone" | "custom-points" | null
     >(null);
+    const compiledMatchingPresets = getCompiledMatchingPresets();
+    const usesCompiledPreset =
+        compiledMatchingPresets.length > 0 &&
+        (data.type === "custom-zone" || data.type === "custom-points");
+    const compiledMatchingOptions = Object.fromEntries(
+        compiledMatchingPresets.map((preset) => [
+            `compiled:${preset.id}`,
+            preset.name,
+        ]),
+    );
+    const matchingTypeValue =
+        usesCompiledPreset && data.compiledName
+            ? (Object.entries(compiledMatchingOptions).find(
+                  ([, label]) => label === data.compiledName,
+              )?.[0] ?? data.type)
+            : data.type;
     const label = `Matching
     ${
         $questions
@@ -182,7 +199,7 @@ export const MatchingQuestionComponent = ({
         <QuestionCard
             questionKey={questionKey}
             label={label}
-            sub={sub}
+            sub={sub ?? data.compiledName}
             className={className}
             collapsed={data.collapsed}
             setCollapsed={(collapsed) => {
@@ -242,55 +259,89 @@ export const MatchingQuestionComponent = ({
             <SidebarMenuItem className={MENU_ITEM_CLASSNAME}>
                 <Select
                     trigger="Matching Type"
-                    options={Object.fromEntries(
-                        matchingQuestionSchema.options
-                            .filter((x) => x.description === NO_GROUP)
-                            .flatMap((x) =>
-                                determineUnionizedStrings(x.shape.type),
-                            )
-                            .map((x) => [(x._def as any).value, x.description]),
-                    )}
-                    groups={matchingQuestionSchema.options
-                        .filter((x) => x.description !== NO_GROUP)
-                        .map((x) => [
-                            x.description,
-                            Object.fromEntries(
-                                determineUnionizedStrings(x.shape.type).map(
-                                    (x) => [
-                                        (x._def as any).value,
-                                        x.description,
-                                    ],
-                                ),
-                            ),
-                        ])
-                        .reduce(
-                            (acc, [key, value]) => {
-                                const values = {
-                                    disabled: !$displayHidingZones,
-                                    options: value,
-                                };
+                    options={
+                        usesCompiledPreset
+                            ? compiledMatchingOptions
+                            : Object.fromEntries(
+                                  matchingQuestionSchema.options
+                                      .filter((x) => x.description === NO_GROUP)
+                                      .flatMap((x) =>
+                                          determineUnionizedStrings(
+                                              x.shape.type,
+                                          ),
+                                      )
+                                      .map((x) => [
+                                          (x._def as any).value,
+                                          x.description,
+                                      ]),
+                              )
+                    }
+                    groups={
+                        usesCompiledPreset
+                            ? undefined
+                            : matchingQuestionSchema.options
+                                  .filter((x) => x.description !== NO_GROUP)
+                                  .map((x) => [
+                                      x.description,
+                                      Object.fromEntries(
+                                          determineUnionizedStrings(
+                                              x.shape.type,
+                                          ).map((x) => [
+                                              (x._def as any).value,
+                                              x.description,
+                                          ]),
+                                      ),
+                                  ])
+                                  .reduce(
+                                      (acc, [key, value]) => {
+                                          const values = {
+                                              disabled: !$displayHidingZones,
+                                              options: value,
+                                          };
 
-                                if (acc[key]) {
-                                    acc[key].options = {
-                                        ...acc[key].options,
-                                        ...value,
-                                    };
-                                } else {
-                                    acc[key] = values;
-                                }
+                                          if (acc[key]) {
+                                              acc[key].options = {
+                                                  ...acc[key].options,
+                                                  ...value,
+                                              };
+                                          } else {
+                                              acc[key] = values;
+                                          }
 
-                                return acc;
-                            },
-                            {} as Record<
-                                string,
-                                {
-                                    disabled: boolean;
-                                    options: Record<string, string>;
-                                }
-                            >,
-                        )}
-                    value={data.type}
+                                          return acc;
+                                      },
+                                      {} as Record<
+                                          string,
+                                          {
+                                              disabled: boolean;
+                                              options: Record<string, string>;
+                                          }
+                                      >,
+                                  )
+                    }
+                    value={matchingTypeValue}
                     onValueChange={async (value) => {
+                        if (value.startsWith("compiled:")) {
+                            const preset = compiledMatchingPresets.find(
+                                (entry) => `compiled:${entry.id}` === value,
+                            );
+
+                            if (!preset || preset.question.id !== "matching") {
+                                return;
+                            }
+
+                            data.type = preset.question.data.type;
+                            data.lat = preset.question.data.lat;
+                            data.lng = preset.question.data.lng;
+                            data.geo = structuredClone(
+                                preset.question.data.geo,
+                            );
+                            data.compiledName =
+                                preset.question.data.compiledName;
+                            questionModified();
+                            return;
+                        }
+
                         if (
                             value === "custom-zone" ||
                             value === "custom-points"
@@ -347,6 +398,7 @@ export const MatchingQuestionComponent = ({
                             if (!(data as any).cat) {
                                 (data as any).cat = { adminLevel: 3 };
                             }
+                            delete data.compiledName;
                             questionModified((data.type = value));
                             return;
                         }
@@ -360,6 +412,7 @@ export const MatchingQuestionComponent = ({
                         if (!(data as any).cat) {
                             (data as any).cat = { adminLevel: 3 };
                         }
+                        delete data.compiledName;
                         questionModified((data.type = value));
                     }}
                     disabled={!data.drag || $isLoading}
@@ -367,23 +420,21 @@ export const MatchingQuestionComponent = ({
             </SidebarMenuItem>
             {questionSpecific}
 
-            {data.type !== "custom-zone" && (
-                <LatitudeLongitude
-                    latitude={data.lat}
-                    longitude={data.lng}
-                    colorName={data.color}
-                    onChange={(lat, lng) => {
-                        if (lat !== null) {
-                            data.lat = lat;
-                        }
-                        if (lng !== null) {
-                            data.lng = lng;
-                        }
-                        questionModified();
-                    }}
-                    disabled={!data.drag || $isLoading}
-                />
-            )}
+            <LatitudeLongitude
+                latitude={data.lat}
+                longitude={data.lng}
+                colorName={data.color}
+                onChange={(lat, lng) => {
+                    if (lat !== null) {
+                        data.lat = lat;
+                    }
+                    if (lng !== null) {
+                        data.lng = lng;
+                    }
+                    questionModified();
+                }}
+                disabled={!data.drag || $isLoading}
+            />
             <div
                 className={cn(
                     "flex gap-2 items-center p-2",

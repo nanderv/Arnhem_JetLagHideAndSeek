@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { useEffect, useRef, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -23,9 +23,11 @@ import {
     defaultCustomQuestions,
     defaultUnit,
     disabledStations,
+    displayHidingZones,
     displayHidingZonesOptions,
     followMe,
     hiderMode,
+    hidingZonesGeoJsonOverrideUrl,
     hidingRadius,
     hidingRadiusUnits,
     hidingZone,
@@ -33,6 +35,9 @@ import {
     leafletMapContext,
     mapGeoJSON,
     mapGeoLocation,
+    matchingQuestionsOverrideUrl,
+    measuringQuestionsOverrideUrl,
+    overlayGeoJsonOverrideUrl,
     pastebinApiKey,
     permanentOverlay,
     planningModeEnabled,
@@ -52,6 +57,12 @@ import {
     shareOrFallback,
     uploadToPastebin,
 } from "@/lib/utils";
+import {
+    getCompiledHidingZones,
+    getCompiledPermanentOverlay,
+    isEmptyFeatureCollection,
+} from "@/lib/compiledQuestions";
+import { normalizeQuestions } from "@/lib/normalizeQuestions";
 import { questionsSchema } from "@/maps/schema";
 
 import { LatitudeLongitude } from "./LatLngPicker";
@@ -89,24 +100,17 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
     const $alwaysUsePastebin = useStore(alwaysUsePastebin);
     const $followMe = useStore(followMe);
     const $customInitPref = useStore(customInitPreference);
-    const lastDefaultUnit = useRef($defaultUnit);
-    const hasSyncedInitialUnit = useRef(false);
+    const $matchingQuestionsOverrideUrl = useStore(
+        matchingQuestionsOverrideUrl,
+    );
+    const $measuringQuestionsOverrideUrl = useStore(
+        measuringQuestionsOverrideUrl,
+    );
+    const $overlayGeoJsonOverrideUrl = useStore(overlayGeoJsonOverrideUrl);
+    const $hidingZonesGeoJsonOverrideUrl = useStore(
+        hidingZonesGeoJsonOverrideUrl,
+    );
     const [isOptionsOpen, setOptionsOpen] = useState(false);
-
-    useEffect(() => {
-        const currentDefault = $defaultUnit;
-
-        if (!hasSyncedInitialUnit.current) {
-            hasSyncedInitialUnit.current = true;
-            if (hidingRadiusUnits.get() !== currentDefault) {
-                hidingRadiusUnits.set(currentDefault);
-            }
-        } else if (lastDefaultUnit.current !== currentDefault) {
-            hidingRadiusUnits.set(currentDefault);
-        }
-
-        lastDefaultUnit.current = currentDefault;
-    }, [$defaultUnit]);
 
     useEffect(() => {
         const params = new URL(window.location.toString()).searchParams;
@@ -167,6 +171,42 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
         }
     }, []);
 
+    useEffect(() => {
+        let cancelled = false;
+
+        const loadBundledGeoJson = async () => {
+            try {
+                const overlay = await getCompiledPermanentOverlay();
+                if (!cancelled) {
+                    permanentOverlay.set(
+                        isEmptyFeatureCollection(overlay) ? null : overlay,
+                    );
+                }
+            } catch (error) {
+                toast.error(`Failed to load overlay.geojson: ${error}`);
+            }
+
+            try {
+                const stations = await getCompiledHidingZones();
+                if (!cancelled) {
+                    customStations.set(stations);
+                    disabledStations.set([]);
+                    useCustomStations.set(stations.length > 0);
+                    includeDefaultStations.set(false);
+                    displayHidingZones.set(stations.length > 0);
+                }
+            } catch (error) {
+                toast.error(`Failed to load hiding_zones.geojson: ${error}`);
+            }
+        };
+
+        loadBundledGeoJson();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [$overlayGeoJsonOverrideUrl, $hidingZonesGeoJsonOverrideUrl]);
+
     const loadHidingZone = (hidingZone: string) => {
         try {
             const geojson = JSON.parse(hidingZone);
@@ -176,7 +216,9 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                 geojson.properties.isHidingZone === true
             ) {
                 questions.set(
-                    questionsSchema.parse(geojson.properties.questions ?? []),
+                    normalizeQuestions(
+                        questionsSchema.parse(geojson.properties.questions ?? []),
+                    ),
                 );
                 mapGeoLocation.set(geojson);
                 mapGeoJSON.set(null);
@@ -189,7 +231,11 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                 }
             } else {
                 if (geojson.questions) {
-                    questions.set(questionsSchema.parse(geojson.questions));
+                    questions.set(
+                        normalizeQuestions(
+                            questionsSchema.parse(geojson.questions),
+                        ),
+                    );
                     delete geojson.questions;
 
                     mapGeoJSON.set(geojson);
@@ -455,7 +501,9 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                     type="text"
                                     value={$thunderforestApiKey}
                                     id="thunderforestApiKey"
-                                    onChange={(e) =>
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) =>
                                         thunderforestApiKey.set(e.target.value)
                                     }
                                     placeholder="Enter your Thunderforest API key"
@@ -481,9 +529,9 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                     type="text"
                                     value={$pastebinApiKey}
                                     id="pastebinApiKey"
-                                    onChange={(e) =>
-                                        pastebinApiKey.set(e.target.value)
-                                    }
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) => pastebinApiKey.set(e.target.value)}
                                     placeholder="Enter your Pastebin API key"
                                 />
                                 <p className="text-xs text-gray-500">
@@ -498,6 +546,65 @@ export const OptionDrawers = ({ className }: { className?: string }) => {
                                         here
                                     </a>
                                     .
+                                </p>
+                            </div>
+                            <Separator className="bg-slate-300 w-[280px]" />
+                            <div className="flex flex-col items-center gap-2 w-full max-w-[560px]">
+                                <Label>Bundled File Overrides</Label>
+                                <Input
+                                    type="text"
+                                    value={$matchingQuestionsOverrideUrl}
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) =>
+                                        matchingQuestionsOverrideUrl.set(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="Matching questions URL"
+                                />
+                                <Input
+                                    type="text"
+                                    value={$measuringQuestionsOverrideUrl}
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) =>
+                                        measuringQuestionsOverrideUrl.set(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="Measuring questions URL"
+                                />
+                                <Input
+                                    type="text"
+                                    value={$overlayGeoJsonOverrideUrl}
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) =>
+                                        overlayGeoJsonOverrideUrl.set(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="Overlay GeoJSON URL"
+                                />
+                                <Input
+                                    type="text"
+                                    value={$hidingZonesGeoJsonOverrideUrl}
+                                    onChange={(
+                                        e: ChangeEvent<HTMLInputElement>,
+                                    ) =>
+                                        hidingZonesGeoJsonOverrideUrl.set(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="Hiding zones GeoJSON URL"
+                                />
+                                <p className="text-xs text-gray-500 text-center">
+                                    Optional raw URLs. When set, these replace
+                                    the bundled `matching_questions.json`,
+                                    `measuring_questions.json`,
+                                    `overlay.geojson`, and
+                                    `hiding_zones.geojson` files.
                                 </p>
                             </div>
                             <Separator className="bg-slate-300 w-[280px]" />

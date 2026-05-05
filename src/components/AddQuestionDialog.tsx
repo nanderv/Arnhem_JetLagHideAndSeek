@@ -16,7 +16,12 @@ import {
     defaultCustomQuestions,
     isLoading,
     leafletMapContext,
+    questions,
 } from "@/lib/context";
+import {
+    getCompiledMatchingQuestions,
+    getCompiledMeasuringQuestions,
+} from "@/lib/compiledQuestions";
 
 export const AddQuestionDialog = ({
     children,
@@ -76,29 +81,43 @@ export const AddQuestionDialog = ({
         return true;
     };
 
-    const runAddMatching = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
-        addQuestion({
-            id: "matching",
-            data: defaultCustomQuestions.get()
-                ? { lat: center.lat, lng: center.lng, type: "custom-points" }
-                : { lat: center.lat, lng: center.lng },
-        });
+    const runAddMatching = async () => {
+        let compiledQuestions;
+
+        try {
+            compiledQuestions = await getCompiledMatchingQuestions();
+        } catch (error) {
+            toast.error(`Failed to load matching questions: ${error}`);
+            return false;
+        }
+
+        if (compiledQuestions.length === 0) {
+            toast.error("No matching questions found in map_inputs/matching");
+            return false;
+        }
+
+        questions.set([...questions.get(), compiledQuestions[0]]);
+        toast.success("Loaded matching question from map_inputs/matching");
         return true;
     };
 
-    const runAddMeasuring = () => {
-        const map = leafletMapContext.get();
-        if (!map) return false;
-        const center = map.getCenter();
-        addQuestion({
-            id: "measuring",
-            data: defaultCustomQuestions.get()
-                ? { lat: center.lat, lng: center.lng, type: "custom-measure" }
-                : { lat: center.lat, lng: center.lng },
-        });
+    const runAddMeasuring = async () => {
+        let compiledQuestions;
+
+        try {
+            compiledQuestions = await getCompiledMeasuringQuestions();
+        } catch (error) {
+            toast.error(`Failed to load measuring questions: ${error}`);
+            return false;
+        }
+
+        if (compiledQuestions.length === 0) {
+            toast.error("No measuring questions found in map_inputs/measuring");
+            return false;
+        }
+
+        questions.set([...questions.get(), compiledQuestions[0]]);
+        toast.success("Loaded measuring question from map_inputs/measuring");
         return true;
     };
 
@@ -170,20 +189,20 @@ export const AddQuestionDialog = ({
                         Add Tentacles
                     </SidebarMenuButton>
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddMatching()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddMatching()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >
-                        Add Matching
+                        Load Matching Questions
                     </SidebarMenuButton>
                     <SidebarMenuButton
-                        onClick={() => {
-                            if (runAddMeasuring()) setOpen(false);
+                        onClick={async () => {
+                            if (await runAddMeasuring()) setOpen(false);
                         }}
                         disabled={$isLoading}
                     >
-                        Add Measuring
+                        Load Measuring Questions
                     </SidebarMenuButton>
                     <SidebarMenuButton
                         onClick={async () => {

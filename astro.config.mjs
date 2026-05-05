@@ -48,5 +48,5 @@ export default defineConfig({
         enabled: false,
     },
     site: "https://taibeled.github.io",
-    base: "JetLagHideAndSeek",
+    base: "/",
 });

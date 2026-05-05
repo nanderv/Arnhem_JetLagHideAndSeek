@@ -1,0 +1,132 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 51.974752300000006,
+      "lng": 5.9107366,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Arnhem Centraal"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9011598,
+              51.9844332
+            ]
+          },
+          "bbox": [
+            5.9011598,
+            51.9844332,
+            5.9011598,
+            51.9844332
+          ]
+        },
+        {
+          "id": "1",
+          "type": "Feature",
+          "properties": {
+            "name": "Arnhem Velperpoort"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9199033,
+              51.9851244
+            ]
+          },
+          "bbox": [
+            5.9199033,
+            51.9851244,
+            5.9199033,
+            51.9851244
+          ]
+        },
+        {
+          "id": "2",
+          "type": "Feature",
+          "properties": {
+            "name": "Arnhem Zuid"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8519491,
+              51.9544945
+            ]
+          },
+          "bbox": [
+            5.8519491,
+            51.9544945,
+            5.8519491,
+            51.9544945
+          ]
+        },
+        {
+          "id": "3",
+          "type": "Feature",
+          "properties": {
+            "name": "Oosterbeek"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8404874,
+              51.9947831
+            ]
+          },
+          "bbox": [
+            5.8404874,
+            51.9947831,
+            5.8404874,
+            51.9947831
+          ]
+        },
+        {
+          "id": "4",
+          "type": "Feature",
+          "properties": {
+            "name": "Arnhem Presikhaaf"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9429188,
+              51.9876005
+            ]
+          },
+          "bbox": [
+            5.9429188,
+            51.9876005,
+            5.9429188,
+            51.9876005
+          ]
+        },
+        {
+          "id": "5",
+          "type": "Feature",
+          "properties": {
+            "name": "Velp"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9809858,
+              51.9950101
+            ]
+          },
+          "bbox": [
+            5.9809858,
+            51.9950101,
+            5.9809858,
+            51.9950101
+          ]
+        }
+      ]
+    }
+  }
+]

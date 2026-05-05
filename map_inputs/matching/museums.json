@@ -1,0 +1,272 @@
+[
+  {
+    "id": "matching",
+    "data": {
+      "type": "custom-points",
+      "lat": 51.981152249999994,
+      "lng": 5.90207605,
+      "geo": [
+        {
+          "id": "0",
+          "type": "Feature",
+          "properties": {
+            "name": "Nederland Watermuseum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.90145,
+              51.9888468
+            ]
+          },
+          "bbox": [
+            5.90145,
+            51.9888468,
+            5.90145,
+            51.9888468
+          ]
+        },
+        {
+          "id": "1",
+          "type": "Feature",
+          "properties": {
+            "name": "Trolley-Busmuseum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9162676,
+              51.9768278
+            ]
+          },
+          "bbox": [
+            5.9162676,
+            51.9768278,
+            5.9162676,
+            51.9768278
+          ]
+        },
+        {
+          "id": "2",
+          "type": "Feature",
+          "properties": {
+            "name": "Historische Kelders Arnhem"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9036539,
+              51.9813254
+            ]
+          },
+          "bbox": [
+            5.9036539,
+            51.9813254,
+            5.9036539,
+            51.9813254
+          ]
+        },
+        {
+          "id": "3",
+          "type": "Feature",
+          "properties": {
+            "name": "Museum Bronbeek en Koninklijk tehuis voor Militairen"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9502543,
+              51.995138
+            ]
+          },
+          "bbox": [
+            5.9502543,
+            51.995138,
+            5.9502543,
+            51.995138
+          ]
+        },
+        {
+          "id": "4",
+          "type": "Feature",
+          "properties": {
+            "name": "Mountainbike Museum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8845626,
+              52.004206
+            ]
+          },
+          "bbox": [
+            5.8845626,
+            52.004206,
+            5.8845626,
+            52.004206
+          ]
+        },
+        {
+          "id": "5",
+          "type": "Feature",
+          "properties": {
+            "name": "Airborne Museum 'Hartenstein'"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8326876,
+              51.9877085
+            ]
+          },
+          "bbox": [
+            5.8326876,
+            51.9877085,
+            5.8326876,
+            51.9877085
+          ]
+        },
+        {
+          "id": "6",
+          "type": "Feature",
+          "properties": {
+            "name": "Gelders Geologisch Museum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9714645,
+              51.998442
+            ]
+          },
+          "bbox": [
+            5.9714645,
+            51.998442,
+            5.9714645,
+            51.998442
+          ]
+        },
+        {
+          "id": "7",
+          "type": "Feature",
+          "properties": {
+            "name": "Museum Arnhem"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8922001,
+              51.9854915
+            ]
+          },
+          "bbox": [
+            5.8922001,
+            51.9854915,
+            5.8922001,
+            51.9854915
+          ]
+        },
+        {
+          "id": "8",
+          "type": "Feature",
+          "properties": {
+            "name": "Nederlands Wijnmuseum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9230833,
+              51.9861153
+            ]
+          },
+          "bbox": [
+            5.9230833,
+            51.9861153,
+            5.9230833,
+            51.9861153
+          ]
+        },
+        {
+          "id": "9",
+          "type": "Feature",
+          "properties": {
+            "name": "Steenfabriek"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8468258,
+              51.973447
+            ]
+          },
+          "bbox": [
+            5.8468258,
+            51.973447,
+            5.8468258,
+            51.973447
+          ]
+        },
+        {
+          "id": "10",
+          "type": "Feature",
+          "properties": {
+            "name": "Kadaster Bedrijfsmuseum"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.8733771,
+              51.9526337
+            ]
+          },
+          "bbox": [
+            5.8733771,
+            51.9526337,
+            5.8733771,
+            51.9526337
+          ]
+        },
+        {
+          "id": "11",
+          "type": "Feature",
+          "properties": {
+            "name": "Airborne at the bridge"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.90924315,
+              51.9764206
+            ]
+          },
+          "bbox": [
+            5.90924315,
+            51.9764206,
+            5.90924315,
+            51.9764206
+          ]
+        },
+        {
+          "id": "12",
+          "type": "Feature",
+          "properties": {
+            "name": "Canon van Nederland"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              5.9061585999999995,
+              52.009670799999995
+            ]
+          },
+          "bbox": [
+            5.9061585999999995,
+            52.009670799999995,
+            5.9061585999999995,
+            52.009670799999995
+          ]
+        }
+      ]
+    }
+  }
+]
