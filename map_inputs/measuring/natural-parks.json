@@ -3,8 +3,8 @@
     "id": "measuring",
     "data": {
       "type": "custom-measure",
-      "lat": 51.970306300000004,
-      "lng": 5.89571965,
+        "lat": 51.982554217750945,
+        "lng": 5.905494689941407,
       "geo": {
         "type": "FeatureCollection",
         "features": [

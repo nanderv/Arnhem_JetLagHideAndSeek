@@ -4,8 +4,8 @@
     "data": {
       "type": "custom-zone",
       "compiledName": "Play Area Border",
-      "lat": 52.005677,
-      "lng": 5.906432000000001,
+        "lat": 51.982554217750945,
+        "lng": 5.905494689941407,
       "geo": {
         "type": "Feature",
         "properties": {
