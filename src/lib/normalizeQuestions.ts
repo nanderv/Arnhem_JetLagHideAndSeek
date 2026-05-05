@@ -1,9 +1,9 @@
-import townsLevelOneAdminText from "../../matching_measuring/Towns (Level 1 admin).geojson?raw";
-
-import type { Feature, MultiPolygon, Polygon } from "geojson";
 import * as turf from "@turf/turf";
+import type { Feature, MultiPolygon, Polygon } from "geojson";
 
-import { questionsSchema, type Question, type Questions } from "@/maps/schema";
+import { type Question, type Questions,questionsSchema } from "@/maps/schema";
+
+import townsLevelOneAdminText from "../../matching_measuring/Towns (Level 1 admin).geojson?raw";
 
 const PLAY_AREA_BORDER_NAME = "Play Area Border";
 

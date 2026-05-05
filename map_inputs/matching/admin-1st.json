@@ -3,6 +3,7 @@
     "id": "matching",
     "data": {
       "type": "custom-zone",
+      "compiledName": "Play Area Border",
       "lat": 52.005677,
       "lng": 5.906432000000001,
       "geo": {

@@ -10,6 +10,11 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import {
+    getCompiledHidingZones,
+    getCompiledPermanentOverlay,
+    isEmptyFeatureCollection,
+} from "@/lib/compiledQuestions";
+import {
     additionalMapGeoLocations,
     allowGooglePlusCodes,
     alwaysUsePastebin,
@@ -27,10 +32,10 @@ import {
     displayHidingZonesOptions,
     followMe,
     hiderMode,
-    hidingZonesGeoJsonOverrideUrl,
     hidingRadius,
     hidingRadiusUnits,
     hidingZone,
+    hidingZonesGeoJsonOverrideUrl,
     includeDefaultStations,
     leafletMapContext,
     mapGeoJSON,
@@ -49,6 +54,7 @@ import {
     triggerLocalRefresh,
     useCustomStations,
 } from "@/lib/context";
+import { normalizeQuestions } from "@/lib/normalizeQuestions";
 import {
     cn,
     compress,
@@ -57,12 +63,6 @@ import {
     shareOrFallback,
     uploadToPastebin,
 } from "@/lib/utils";
-import {
-    getCompiledHidingZones,
-    getCompiledPermanentOverlay,
-    isEmptyFeatureCollection,
-} from "@/lib/compiledQuestions";
-import { normalizeQuestions } from "@/lib/normalizeQuestions";
 import { questionsSchema } from "@/maps/schema";
 
 import { LatitudeLongitude } from "./LatLngPicker";

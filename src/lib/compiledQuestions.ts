@@ -1,5 +1,4 @@
-import hidingZonesGeoJsonText from "../../map_inputs/hiding_zones.geojson?raw";
-import overlayGeoJsonText from "../../map_inputs/overlay.geojson?raw";
+import type { FeatureCollection, GeoJsonObject } from "geojson";
 
 import {
     hidingZonesGeoJsonOverrideUrl,
@@ -8,10 +7,11 @@ import {
     overlayGeoJsonOverrideUrl,
 } from "@/lib/context";
 import { normalizeLegacyCustomZoneQuestion, normalizeQuestions } from "@/lib/normalizeQuestions";
-import { parseCustomStationsFromText, type CustomStation } from "@/maps/api";
-import type { FeatureCollection, GeoJsonObject } from "geojson";
+import { type CustomStation,parseCustomStationsFromText } from "@/maps/api";
+import { type Question, type Questions,questionsSchema } from "@/maps/schema";
 
-import { questionsSchema, type Question, type Questions } from "@/maps/schema";
+import hidingZonesGeoJsonText from "../../map_inputs/hiding_zones.geojson?raw";
+import overlayGeoJsonText from "../../map_inputs/overlay.geojson?raw";
 
 type CompiledQuestionPreset = {
     id: string;

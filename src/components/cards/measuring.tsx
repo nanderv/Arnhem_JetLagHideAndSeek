@@ -12,6 +12,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { getCompiledMeasuringPresets } from "@/lib/compiledQuestions";
 import {
     customInitPreference,
     displayHidingZones,
@@ -22,7 +23,6 @@ import {
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { getCompiledMeasuringPresets } from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import { determineMeasuringBoundary } from "@/maps/questions/measuring";
 import {
@@ -258,8 +258,6 @@ export const MeasuringQuestionComponent = ({
                             }
 
                             data.type = preset.question.data.type;
-                            data.lat = preset.question.data.lat;
-                            data.lng = preset.question.data.lng;
                             data.geo = structuredClone(
                                 preset.question.data.geo,
                             );

@@ -10,6 +10,10 @@ import { MapContainer, ScaleControl, TileLayer } from "react-leaflet";
 import { toast } from "react-toastify";
 
 import {
+    getCompiledMatchingQuestions,
+    getCompiledMeasuringQuestions,
+} from "@/lib/compiledQuestions";
+import {
     additionalMapGeoLocations,
     addQuestion,
     animateMapMovements,
@@ -29,10 +33,6 @@ import {
     thunderforestApiKey,
     triggerLocalRefresh,
 } from "@/lib/context";
-import {
-    getCompiledMatchingQuestions,
-    getCompiledMeasuringQuestions,
-} from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import { applyQuestionsToMapGeoData, holedMask } from "@/maps";
 import { hiderifyQuestion } from "@/maps";

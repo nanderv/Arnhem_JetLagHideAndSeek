@@ -13,6 +13,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar-l";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { getCompiledMatchingPresets } from "@/lib/compiledQuestions";
 import {
     customInitPreference,
     displayHidingZones,
@@ -23,7 +24,6 @@ import {
     questions,
     triggerLocalRefresh,
 } from "@/lib/context";
-import { getCompiledMatchingPresets } from "@/lib/compiledQuestions";
 import { cn } from "@/lib/utils";
 import {
     determineMatchingBoundary,
@@ -331,8 +331,6 @@ export const MatchingQuestionComponent = ({
                             }
 
                             data.type = preset.question.data.type;
-                            data.lat = preset.question.data.lat;
-                            data.lng = preset.question.data.lng;
                             data.geo = structuredClone(
                                 preset.question.data.geo,
                             );
